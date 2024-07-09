@@ -1,2 +1,2 @@
-![Example](/desktop.png)
+<hi> imagen (/desktop.png) </h1>
 
