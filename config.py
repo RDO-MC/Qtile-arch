@@ -8,6 +8,25 @@ mod = "mod4"
 terminal = "kitty"
 
 keys = [
+     # ... tus otras teclas ...
+    Key([], "XF86AudioRaiseVolume", lazy.spawn("amixer -q sset Master 5%+")),
+    Key([], "XF86AudioLowerVolume", lazy.spawn("amixer -q sset Master 5%-")),
+    Key([], "XF86AudioMute", lazy.spawn("amixer -q sset Master toggle")),
+
+     Key([], "XF86MonBrightnessUp", lazy.spawn("brightnessctl set +10%")),
+    Key([], "XF86MonBrightnessDown", lazy.spawn("brightnessctl set 10%-")),
+    
+        # Volumen
+    Key([mod], "F11", lazy.spawn("pamixer -i 5"), desc="Subir volumen"),
+    Key([mod], "F10", lazy.spawn("pamixer -d 5"), desc="Bajar volumen"),
+    Key([mod], "F9", lazy.spawn("pamixer -t"), desc="Mute/Unmute volumen"),
+
+    # Brillo
+    Key([mod], "F4", lazy.spawn("brightnessctl s +10%"), desc="Aumentar brillo"),
+    Key([mod], "F3", lazy.spawn("brightnessctl s 10%-"), desc="Disminuir brillo"),
+
+    # ... tus otras configuraciones de teclas
+
     Key([mod], "Return", lazy.spawn("kitty -o include ~/.config/kitty/kitty.conf"), desc="Launch Kitty with Qtile config"),
     Key([mod], "h", lazy.layout.left(), desc="Move focus to left"),
     Key([mod], "l", lazy.layout.right(), desc="Move focus to right"),
@@ -51,23 +70,19 @@ extension_defaults = widget_defaults.copy()
 
 screens = [
     Screen(
-        top=bar.Bar(
-            [
-                widget.TaskList(
-                    icon_size=20,
-                    highlight_method='block',  # Highlight focused task
-                    rounded=True,
-                    padding_x=5,
-                    padding_y=5,
-                    border=2,
-                    fontsize=16,
-                    font="Font Awesome 5 Free",  # Asegúrate de tener instalada esta fuente
-                ),
-                widget.Systray(),
-                widget.Clock(format='%Y-%m-%d %a %I:%M %p'),
-            ],
-            24,
-        ),
+      #  top=bar.Bar(
+       #     [
+        #        widget.CurrentLayout(),
+               # widget.Prompt(),
+               # widget.WindowName(),
+                #widget.Clock(format='%Y-%m-%d %a %I:%M %p'),
+               # widget.Battery(),
+               # widget.CPU(),
+               # widget.Memory(),
+                #widget.PulseVolume(),
+           # ],
+           # 24,
+        #),
     ),
 ]
 
@@ -103,11 +118,14 @@ wmname = "LG3D"
 
 autostart = [
     "setxkbmap es",
-    "feh --bg-fill /home/acdc/.config/qtile/samurai.png",
+    "feh --bg-fill /home/acdc/.config/qtile/woman.jpg",
     "xcompmgr &",
     "picom &",
     "nm-applet &",
     "pulseaudio --start",
+    "polybar -rq bar &",
+    "brightnessctl &",
+    "alsa-utils &"
 ]
 
 for x in autostart:
